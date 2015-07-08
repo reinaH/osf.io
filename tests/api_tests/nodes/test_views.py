@@ -1320,3 +1320,72 @@ class TestDeleteNodePointer(ApiTestCase):
     def test_deletes_private_node_pointer_logged_in_non_contributor(self):
         res = self.app.delete(self.private_url, auth=self.basic_auth_two, expect_errors=True)
         assert_equal(res.status_code, 403)
+
+
+class TestReturnDeletedNode(ApiTestCase):
+    def setUp(self):
+        super(TestReturnDeletedNode, self).setUp()
+        self.user = UserFactory.build()
+        self.user.set_password('justapoorboy')
+        self.user.save()
+        self.basic_auth = (self.user.username, 'justapoorboy')
+
+        self.non_contrib = UserFactory.build()
+        self.non_contrib.set_password('justapoorboy')
+        self.non_contrib.save()
+        self.basic_non_contrib_auth = (self.non_contrib.username, 'justapoorboy')
+
+        self.public_deleted = ProjectFactory(is_public=True, is_deleted=True, creator= self.user, category='project')
+        self.private_deleted = ProjectFactory(is_public=False, is_deleted=True, creator= self.user, category='project')
+
+        self.private = ProjectFactory(is_public=False, creator=self.user)
+        self.public = ProjectFactory(is_public=True, creator=self.user)
+
+    def test_return_non_deleted_private_node(self):
+        self.url = '/{}nodes/{}/'.format(API_BASE,  self.private._id)
+        res = self.app.get(self.url, auth=self.basic_auth)
+        assert_equal(res.status_code, 200)
+
+    def test_return_non_deleted_public_node(self):
+        #no authentication needed
+        self.public_url = '/{}nodes/{}/'.format(API_BASE, self.public._id )
+        res = self.app.get(self.public_url)
+        assert_equal(res.status_code, 200)
+
+    def test_does_not_return_deleted_public_node(self):
+        self.url = '/{}nodes/{}/'.format(API_BASE,  self.public_deleted._id)
+        res = self.app.get(self.url, auth=self.basic_auth)
+        assert_equal(res.status_code, 403)
+
+    def test_does_not_return_deleted_private_node(self):
+        self.url = '/{}nodes/{}/'.format(API_BASE,  self.private_deleted._id)
+        res = self.app.get(self.url, auth=self.basic_auth)
+        assert_equal(res.status_code, 403)
+
+    def test_delete_deleted_node(self):
+        # test currently returns 4XX but action is allowed when hard coded with requests.
+        # TODO make authorized and unauthorized.
+        self.url = '/{}nodes/{}/'.format(API_BASE, self.public_deleted._id)
+        res = self.app.delete(self.url, auth=self.basic_auth, expect_errors=True)
+        assert_equal(res.status_code, 403)
+
+        # res2 = self.app.delete(self.url, auth=self.basic_auth, expect_errors=True)
+        # assert_equal(res2.status_code,403)
+
+    def test_edit_deleted_public_node(self):
+        self.url = '/{}nodes/{}/'.format(API_BASE,  self.public_deleted._id)
+        res = self.app.put(self.url, params={'title': self.public_deleted.title,
+                                           'node_id': self.public_deleted._id,
+                                           'category': 'data'
+                                          }
+                                            , auth=self.basic_auth)
+        assert_equal(res.status_code, 403)
+
+    def test_edit_deleted_private_node(self):
+        self.url = '/{}nodes/{}/'.format(API_BASE,  self.private_deleted._id)
+        res = self.app.put(self.url, params={'title': self.private_deleted.title,
+                                           'node_id': self.private_deleted._id,
+                                           'category': 'data'
+                                          }
+                                            , auth=self.basic_auth)
+        assert_equal(res.status_code, 403)
