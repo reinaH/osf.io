@@ -346,3 +346,25 @@ class TestUserRoutesNodeRoutes(ApiTestCase):
         url = "/nodes/me/".format(API_BASE)
         res = self.app.get(url, auth=self.auth_one, expect_errors=True)
         assert_equal(res.status_code, 404)
+
+class TestDeactivatedUser(ApiTestCase):
+
+    def setUp(self):
+        super(TestUserDetail, self).setUp()
+        self.user_one = UserFactory.build()
+        self.user_one.set_password('justapoorboy')
+        self.user_one.social['twitter'] = 'howtopizza'
+        self.user_one.save()
+        self.auth_one = (self.user_one.username, 'justapoorboy')
+        self.user_two = UserFactory.build()
+        self.user_two.set_password('justapoorboy')
+        self.user_two.save()
+        self.auth_two = (self.user_two.username, 'justapoorboy')
+
+    def test_return_deactivated_user(self):
+        self.url = '/{}users/{}/'.format(API_BASE, self.user_one._id)
+        res = self.app.get(self.url, auth = self.auth_one)
+        assert_equal(res.status_code, 403)
+
+    # def test_edit_deactivated_user(self):
+
