@@ -137,7 +137,10 @@ virtualenv env
 source env/bin/activate
 ```
 
-- Copy `website/settings/local-dist.py` to `website/settings/local.py.`  NOTE: This is your local settings file,
+- Copy `cp website/settings/local-dist.py` to `website/settings/local.py`.  NOTE: This is your local settings file,
+which overrides the settings in `website/settings/defaults.py`. It will not be added to source control, so change
+it as you wish.
+- Copy `cp api/base/settings/local-dist.py` to `api/base/settings/local.py`.  NOTE: This is your local settings file,
 which overrides the settings in `website/settings/defaults.py`. It will not be added to source control, so change
 it as you wish.
 
