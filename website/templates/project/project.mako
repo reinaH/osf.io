@@ -173,9 +173,14 @@
                 </p>
 
                 % if node['description'] or 'write' in user['permissions']:
-                    <p>
-                    <span id="description">Description:</span> <span id="nodeDescriptionEditable" class="node-description overflow" data-type="textarea">${node['description']}</span>
-                    </p>
+                    <div class="row">
+                        <div class="col-sm-2">
+                    <span id="description">Description:</span>
+                        </div>
+                        <div class="col-sm-10">
+                    <span id="nodeDescriptionEditable" class="node-description overflow" data-type="textarea">${node['description']}</span>
+                        </div>
+                    </div>
                 % endif
                     <p>
                       <license-picker params="saveUrl: '${node['update_url']}',
