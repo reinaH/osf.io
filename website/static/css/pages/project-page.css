@@ -134,3 +134,127 @@
 .table-addon-terms td:first-child {
     word-break: normal;
 }
+
+/* Project Description */
+
+span#nodeDescriptionEditable{
+    white-space:nowrap;
+}
+
+.editableform .form-control {
+    width: auto;
+}
+
+.editable-buttons {
+   /*display: inline-block; /!* should be inline to take effect of parent's white-space: nowrap *!/*/
+   vertical-align: top;
+   margin-left: 7px;
+   /* inline-block emulation for IE7*/
+   zoom: 1;
+   *display: inline;
+}
+
+
+
+.editable-input {
+    vertical-align: top;
+    /*display: inline-block; /!* should be inline to take effect of parent's white-space: nowrap *!/*/
+    width: auto; /* bootstrap-responsive has width: 100% that breakes layout */
+    white-space: normal; /* reset white-space decalred in parent*/
+   /* display-inline emulation for IE7*/
+   zoom: 1;
+   *display: inline;
+}
+
+.editable-container.editable-inline {
+    /*display: inline-block; */
+    vertical-align: middle;
+    width: auto;
+
+    /* inline-block emulation for IE7*/
+    zoom: 1;
+    *display: inline;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*div .editable-buttons{*/
+    /*display: block;*/
+}
+
+
+div .editable-input{
+
+    display: block;
+    width: 0;
+}
+
+
+
+
+
+
+
+
+/*span #nodeDescriptionEditable div.editable-buttons{*/
+    /*display:block;*/
+/*}*/
+
+
+
+/*@media (min-width: 768px)*/
+/*.form-inline .form-control {*/
+    /*/!* display: inline-block; *!/*/
+     /*width: 0 !important;*/
+    /*vertical-align: middle;*/
+/*}*/
+
+
+/*.editable-input{*/
+    /*vertical-align: top;*/
+    /*width: auto;*/
+    /*white-space: normal;*/
+    /*zoom: 1;*/
+/*}*/
+
+/*.editableform .form-control{*/
+    /*/!*width: inherit !important;*!/r*/
+    /*width:;*/
+/*}*/
+
+/*.editable-container.editable-inline{*/
+    /*/!*vertical-align: middle;*!/*/
+    /*/!*width: auto;*!/*/
+    /*/!!* inline-block emulation for IE7*!/!*    zoom: 1;*/
+/*}*/
+/*.form-inline .form-group{*/
+
+    /*/!*display: inline-block;*!/*/
+    /*vertical-align: middle;*/
+/*}*/
+
+/*.form-inline .form-control{*/
+/*}*/
+
+/*.editable-buttons{*/
+    /*vertical-align: top;*/
+    /*margin-left: 7px;*/
+    /*zoom: 1;*/
+
+/*}*/
+
+/*.editable-error-block{*/
+    /*font-size: 16px;*/
+
+/*}*/
