@@ -173,9 +173,14 @@
                 </p>
 
                 % if node['description'] or 'write' in user['permissions']:
-                    <p>
-                    <span id="description">Description:</span> <span id="nodeDescriptionEditable" class="node-description overflow" data-type="textarea">${node['description']}</span>
-                    </p>
+                    <div class="row">
+                        <div class="col-sm-2">
+                    <span id="description">Description:</span>
+                        </div>
+                        <div class="col-sm-10">
+                    <span id="nodeDescriptionEditable" class="node-description overflow" data-type="textarea">${node['description']}</span>
+                        </div>
+                    </div>
                 % endif
             </div>
         </div>
@@ -375,3 +380,41 @@ ${parent.javascript_bottom()}
 % endfor
 
 </%def>
+
+<%def name = "custom_editableform()">
+
+    <div class= "row">
+<form class="editableform" style="">
+  <div class="control-group form-group">
+    <div>
+        <div class= "col-sm-10">
+
+      <div class="editable-input">
+        <textarea class="form-control input-large" rows="7">
+        </textarea>
+      </div>
+    </div>
+
+      <div class="col-sm-2">
+
+      <div class="editable-buttons">
+      <button type="submit" class="btn btn-success btn-sm editable-submit">
+        <i class="glyphicon glyphicon-ok">
+        </i>
+      </button>
+      <button type="button" class="btn btn-default btn-sm editable-cancel">
+        <i class="glyphicon glyphicon-remove">
+        </i>
+      </button>
+      </div>
+    </div>
+    <div class="editable-error-block help-block" style="display: none;">
+    </div>
+  </div>
+  </div>
+</form>
+</div>
+
+</%def>
+
+
